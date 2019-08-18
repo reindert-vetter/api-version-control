@@ -1,0 +1,46 @@
+{
+  "name": "reindert-vetter/api-version-control",
+  "description": "A Laravel package to manage versions of endpoints in an elegant way",
+  "keywords": [
+    "php",
+    "laravel",
+    "api",
+    "endpoint",
+    "version",
+    "version control",
+    "middleware",
+    "release notes"
+  ],
+  "homepage": "https://github.com/reindert-vetter/api-version-control",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Reindert Vetter",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "illuminate/routing": "~5.7.12"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ReindertVetter\\ApiVersionControl\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ReindertVetter\\ApiVersionControl\\Tests\\": "test"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
