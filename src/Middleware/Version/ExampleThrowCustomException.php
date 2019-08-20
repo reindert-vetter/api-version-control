@@ -4,14 +4,10 @@ declare(strict_types=1);
 namespace ReindertVetter\ApiVersionControl\Middleware\Version;
 
 use Closure;
-use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ExampleThrowCustomException
 {
-    use Logger;
-
     /**
      * @param           $request
      * @param  \Closure $next
@@ -23,13 +19,13 @@ class ExampleThrowCustomException
         $response = $next($request);
 
         if ($response->exception) {
-            return response()->json(
+            $response->setContent(
                 [
                     "errors" => [
                         [
-                            "human" => $ex->getMessage(),
-                        ]
-                    ]
+                            "human" => $response->exception->getMessage(),
+                        ],
+                    ],
                 ]
             );
         }

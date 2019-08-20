@@ -34,7 +34,7 @@ class MiddlewareCollection extends Collection
      */
     public static function createFromConfig(Request $request)
     {
-        $middlewareByPattern = config('api_version');
+        $middlewareByPattern = config('api_version_control');
         $default             = $middlewareByPattern['default'];
         unset($middlewareByPattern['default']);
 
@@ -58,7 +58,7 @@ class MiddlewareCollection extends Collection
     public function filterByVersionCompare(): self
     {
         /** @var \ReindertVetter\ApiVersionControl\Helper\VersionParser $versionParser */
-        $versionParser  = app(config('api_version.version_parser'));
+        $versionParser  = app(config('api_version_control.version_parser'));
         $requestVersion = $versionParser->getVersion();
 
         return $this->filter(

@@ -25,13 +25,9 @@ class ApiVersionControlServiceProvider extends ServiceProvider
             'api-version-control-config'
         );
 
-//        $this->app->middleware(
-//            [
-//                ApiVersionControl::class,
-//            ]
-//        );
         /** @var \Illuminate\Routing\Router $router */
         $router = $this->app['router'];
+        $router->pushMiddlewareToGroup('web', ApiVersionControl::class);
         $router->pushMiddlewareToGroup('api', ApiVersionControl::class);
     }
 }
