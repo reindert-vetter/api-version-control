@@ -53,11 +53,11 @@ In api_version_control config file you will see releases with an array of versio
     ],
 ```
 #### URI match
-The URI match contains a string to match the uri with regex (`'GET/orders' => [`). The subject contains the method and the uri (`$request->method() . $request->getPathInfo()`). It runs through the version rules. If a match is found, it stops searching.  The match contains [Version rules](version_rules).
+The URI match contains a string to match the endpoint with regex (`'GET/orders' => [`). The subject contains the method and the URI (`$request->method() . $request->getPathInfo()`). It runs through the version rules. If a match is found, it stops searching.  The match contains [Version rules](version_rules).
 > If no classes can be found, *default* will be used. That way you can update all your other endpoints.
 
 #### Version rule
-Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within rules are [Version statement](version-statement) and [Version middleware](version-middleware).
+Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within *Version rule* are [Version statement](version-statement) and [Version middleware](version-middleware).
 
 ### Version statement
 A *Version statement* file looks like this:
@@ -160,7 +160,8 @@ Out of the box this package supports versions in the header accept and versions 
 ## Install
 1. Run `composer require reindert-vetter/api-version-control`.
 1. Run `php artisan package:discover` ( if this is not done automatically).
-1. Create config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`
+1. Create config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
+1. Choose a [Version parser](version-parser) or create one yourself.
 
 ## Ideas for the future
 [] Generate release notes in JSON, HTML and markdown format (with description)
