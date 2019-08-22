@@ -4,11 +4,11 @@ A Laravel package to manage versions of endpoints in an elegant way
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version statement**
 
-You probably use if statements to determine whether the code should be executed (such as `if (RequestVersion::isAtLeast('2.0')) {`)? But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a solution for this: [Version statement](version-statement).
+You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`)? But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version statement](version-statement).
 
 Option 2: **Version middleware**
 
- Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a solution that goes even further than *Version statement*: [Version middleware](version-middleware).
+ Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a SOLID solution that goes even further than *Version statement*: [Version middleware](version-middleware).
 > You can use *Version middleware* and *Version statement* together in one project
 
 ## Benefits
@@ -17,7 +17,6 @@ Option 2: **Version middleware**
 |----|:----------:|:-------------:|
 | Upgrading all endpoints or one specific endpoint. | ✔️ | ✔️ |
 | One overview of all versions with the adjustments. | ✔️ | ✔️ |
-|  Debug from your controller. | ✔️ | ️ |
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
 | The router and your code always contains the latest version. | | ✔️ |
 | Old versions are only defined once. You only have to worry about that once. | | ✔️ |
@@ -54,10 +53,11 @@ In api_version_control config file you will see releases with an array of versio
     ],
 ```
 #### URI match
-The URI match contains a string to match the uri with regex (`'GET/orders' => [`). The subject contains the method and the uri (`$request->method() . $request->getPathInfo()`). It runs through the version rules. If a match is found, it stops searching. The match contains [Version rules](version_rules).
+The URI match contains a string to match the uri with regex (`'GET/orders' => [`). The subject contains the method and the uri (`$request->method() . $request->getPathInfo()`). It runs through the version rules. If a match is found, it stops searching.  The match contains [Version rules](version_rules).
 
 #### Version rule
 Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within rules are [Version statement](version-statement) and [Version middleware](version-middleware).
+> If no classes can be found, default will be used. This is perhaps the best part of this package. Because you can now also give a version to your other endpoints.
 
 ### Version statement
 A *Version statement* file looks like this:
