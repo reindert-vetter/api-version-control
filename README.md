@@ -54,10 +54,10 @@ In api_version_control config file you will see releases with an array of versio
 ```
 #### URI match
 The URI match contains a string to match the uri with regex (`'GET/orders' => [`). The subject contains the method and the uri (`$request->method() . $request->getPathInfo()`). It runs through the version rules. If a match is found, it stops searching.  The match contains [Version rules](version_rules).
+> If no classes can be found, *default* will be used. That way you can update all your other endpoints.
 
 #### Version rule
 Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within rules are [Version statement](version-statement) and [Version middleware](version-middleware).
-> If no classes can be found, *default* will be used. That way you can update all your other endpoints.
 
 ### Version statement
 A *Version statement* file looks like this:
