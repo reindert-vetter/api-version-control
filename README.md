@@ -2,14 +2,14 @@
 A Laravel package to manage versions of endpoints in an elegant way
 
 ## Two ways to manage the versions of your endpoints
-Option 1: *Version statement*
+Option 1: **Version statement**
 
 You probably use if statements to determine whether the code should be executed from a particular version (such as `if (RequestVersion::isAtLeast('2.0')) {`)? But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a solution for this: [Version statement](version_statement).
 
-Option 2: *Version middleware*
+Option 2: **Version middleware**
 
- Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a solution that goes even further than _Version statement_: [Version middleware](version_middleware).
-> You can use _Version middleware_ and _Version statement_ together in one project
+ Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a solution that goes even further than *Version statement*: [Version middleware](version_middleware).
+> You can use *Version middleware* and *Version statement* together in one project
 
 ## Benefits
 
@@ -21,7 +21,7 @@ Option 2: *Version middleware*
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
 | The router and the code in and from the controller always contains the latest version. | | ✔️ |
 | Old versions are only defined once. You only have to worry about that once. | | ✔️ |
-> Note for *Version middleware*: If you do not yet use a self-made middleware, you can debug from your controller. With _Version middleware_, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
+> Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
 
 ## Version statement
 
