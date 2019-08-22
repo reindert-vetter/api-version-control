@@ -36,7 +36,7 @@ class MiddlewareCollection extends Collection
      */
     public static function createFromConfig(Request $request)
     {
-        $middlewareByPattern = config('api_version_control');
+        $middlewareByPattern = config('api_version_control.releases');
         $default             = $middlewareByPattern['default'];
         unset($middlewareByPattern['default']);
 

@@ -6,7 +6,7 @@ namespace ReindertVetter\ApiVersionControl\Middleware\Version;
 use Closure;
 use Illuminate\Http\Request;
 
-class ExampleThrowCustomException
+class ExampleThrowHumanException
 {
     /**
      * @param           $request
