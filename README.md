@@ -20,7 +20,7 @@ Option 2: **Version middleware**
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
 | The router and your code always contains the latest version. | | ✔️ |
 | Old versions are only defined once. Once made, you don't have to worry about that anymore | | ✔️ |
-> Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
+> Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code. Many companies only offer support and bug fixes for the latest version. In that case you can debug from your controller.
 
 ## How to use
 ### Releases
