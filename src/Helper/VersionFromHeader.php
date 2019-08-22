@@ -32,7 +32,7 @@ class VersionFromHeader implements VersionParser
             return self::LOWEST_VERSION;
         }
 
-        if (! preg_match('/version=([0-9\.]+)/i', $acceptHeader, $version)) {
+        if (! preg_match('/version=v?([0-9\.]+)/i', $acceptHeader, $version)) {
             return self::LOWEST_VERSION;
         }
 

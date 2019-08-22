@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ReindertVetter\ApiVersionControl\Collection;
 
+use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use ReindertVetter\ApiVersionControl\Exception\BadConfigVersionException;
@@ -19,17 +20,18 @@ class MiddlewareCollection extends Collection
     /**
      * Create a new collection.
      *
-     * @param  array                    $items
-     * @param  \Illuminate\Http\Request $request
+     * @param array                    $items
+     * @param \Illuminate\Http\Request $request
      */
     public function __construct($items = [], Request $request = null)
     {
         parent::__construct($items);
-        $this->request = $request ?? request();
+        $this->request = $request ?? Container::getInstance()->make(Request::class);
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \ReindertVetter\ApiVersionControl\Collection\MiddlewareCollection
      */
     public static function createFromConfig(Request $request)
@@ -70,8 +72,30 @@ class MiddlewareCollection extends Collection
         );
     }
 
+    public function permitVersionStatement(): self
+    {
+        foreach ($this->flatten() as $pipe) {
+            if (method_exists($pipe, 'permitted')) {
+                /** @var \ReindertVetter\ApiVersionControl\Concerns\VersionStatement $pipe */
+                $pipe->permit = true;
+            }
+        }
+
+        return $this;
+    }
+
+    public function rejectNonPipe(): self
+    {
+        return $this->filter(
+            function ($pipe) {
+                return method_exists($pipe, 'handle');
+            }
+        );
+    }
+
     /**
-     * @param  string $rawVersionRule
+     * @param string $rawVersionRule
+     *
      * @return array
      * @throws \ReindertVetter\ApiVersionControl\Exception\BadConfigVersionException
      */

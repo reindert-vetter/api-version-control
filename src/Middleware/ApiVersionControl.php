@@ -14,14 +14,17 @@ class ApiVersionControl
 {
     /**
      * @param           $request
-     * @param  \Closure $next
+     * @param \Closure  $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next): SymfonyResponse
     {
         $pipes = MiddlewareCollection::createFromConfig($request)
+                                     ->permitVersionStatement()
                                      ->filterByVersionCompare()
                                      ->flatten()
+                                     ->rejectNonPipe()
                                      ->unique()
                                      ->reverse()
                                      ->toArray();
