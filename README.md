@@ -19,7 +19,7 @@ Option 2: **Version middleware**
 | One overview of all versions with the adjustments. | ✔️ | ✔️ |
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
 | The router and your code always contains the latest version. | | ✔️ |
-| Old versions are only defined once. You only have to worry about that once. | | ✔️ |
+| Old versions are only defined once. Once made, you don't have to worry about that anymore | | ✔️ |
 > Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
 
 ## How to use
@@ -74,7 +74,7 @@ class ValidateZipCode
     use VersionStatement;
 }
 ```
-If the file contains the trait `ReindertVetter\ApiVersionControl\Concerns\VersionStatement`, then you can do the following:
+If the file contains the trait `ReindertVetter\ApiVersionControl\Concerns\VersionStatement`, then you can do the following in your source code:
 ```
 if (ValidateZipCode::permitted()) {
     (...)
