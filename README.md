@@ -57,7 +57,7 @@ The URI match contains a string to match the uri with regex (`'GET/orders' => [`
 
 #### Version rule
 Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within rules are [Version statement](version-statement) and [Version middleware](version-middleware).
-> If no classes can be found, default will be used. This is perhaps the best part of this package. Because you can now also give a version to your other endpoints.
+> If no classes can be found, *default* will be used. That way you can update all your other endpoints.
 
 ### Version statement
 A *Version statement* file looks like this:
