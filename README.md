@@ -4,7 +4,7 @@ A Laravel package to manage versions of endpoints in an elegant way
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version statement**
 
-You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`)? But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version statement](#version-statement).
+You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version statement](#version-statement).
 
 Option 2: **Version middleware**
 
@@ -19,7 +19,7 @@ Option 2: **Version middleware**
 | One overview of all versions with the adjustments. | ✔️ | ✔️ |
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
 | The router and your code always contains the latest version. | | ✔️ |
-| Old versions are only defined once. Once made, you don't have to worry about that anymore | | ✔️ |
+| Old versions are only defined once. Once made, you don't have to worry about that anymore. | | ✔️ |
 > Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
 
 ## How to use
@@ -45,7 +45,7 @@ In api_version_control.php config file you will see releases with an array of ve
         ],
 
         'default' => [
-            '<=2.0' => [
+            '<=1.0' => [
                 ExampleThrowCustomException::class,
             ],
         ],
