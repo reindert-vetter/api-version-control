@@ -18,7 +18,7 @@ Option 2: **Version middleware**
 | Upgrading all endpoints or one specific endpoint. | ✔️ | ✔️ |
 | One overview of all versions with the adjustments. | ✔️ | ✔️ |
 | Use one controller, one validation and one router for one endpoint. |  | ✔️ |
-| The router and your code always contains the latest version. | | ✔️ |
+| The controller (and further) always contains the latest version. | | ✔️ |
 | Old versions are only defined once. Once made, you don't have to worry about that anymore. | | ✔️ |
 > Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
 
