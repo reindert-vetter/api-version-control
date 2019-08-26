@@ -5,7 +5,7 @@ namespace ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock;
 
 use ReindertVetter\ApiVersionControl\Concerns\VersionStatement;
 
-class MockVersionStatement
+class MockVersionStatementSecond
 {
     use VersionStatement;
 }

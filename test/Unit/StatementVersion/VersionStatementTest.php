@@ -5,38 +5,44 @@ declare(strict_types=1);
 
 namespace ReindertVetter\ApiVersionControl\Tests\Unit\VersionParser;
 
-use Illuminate\Container\Container;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Pipeline;
 use PHPUnit\Framework\TestCase;
 use ReindertVetter\ApiVersionControl\Collection\MiddlewareCollection;
-use ReindertVetter\ApiVersionControl\Concerns\VersionStatement;
-use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\GoodVersionStatement;
+use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionStatementSecond;
 use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionMiddleware;
-use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionStatement;
+use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionStatementFirst;
 
 class VersionStatementTest extends TestCase
 {
     protected function setUp()
     {
         // Reset static variable
-        $goodVersionStatementMiddleware         = new MockVersionStatement();
+        $goodVersionStatementMiddleware = new MockVersionStatementFirst();
         $goodVersionStatementMiddleware->permit = false;
     }
 
     public function testPermitVersionStatement(): void
     {
-
-        $goodVersionStatement = new MockVersionStatement();
+        $goodVersionStatement = new MockVersionStatementFirst();
         $middlewareCollection = new MiddlewareCollection([$goodVersionStatement]);
         $middlewareCollection->permitVersionStatement();
 
-        $this->assertTrue(MockVersionStatement::permitted());
+        $this->assertTrue(MockVersionStatementFirst::permitted());
+    }
+
+    public function testNotPermitVersionStatement(): void
+    {
+        $goodVersionStatement = new MockVersionStatementFirst();
+        $middlewareCollection = new MiddlewareCollection([$goodVersionStatement]);
+        $middlewareCollection->permitVersionStatement();
+
+        $this->assertFalse(MockVersionStatementSecond::permitted());
     }
 
     public function testRejectVersionStatement(): void
     {
-        $middlewareCollection = new MiddlewareCollection([new MockVersionStatement(), new MockVersionMiddleware()]);
+        $middlewareCollection = new MiddlewareCollection(
+            [new MockVersionStatementFirst(), new MockVersionMiddleware()]
+        );
         $middlewareCollection = $middlewareCollection
             ->permitVersionStatement()
             ->rejectNonPipe();
@@ -47,7 +53,7 @@ class VersionStatementTest extends TestCase
 
     public function testVersionNotPermit(): void
     {
-        $this->assertFalse(MockVersionStatement::permitted());
+        $this->assertFalse(MockVersionStatementFirst::permitted());
     }
 
     public function testMiddleWareWithoutTrait(): void

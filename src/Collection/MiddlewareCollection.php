@@ -77,6 +77,7 @@ class MiddlewareCollection extends Collection
         foreach ($this->flatten() as $pipe) {
             if (method_exists($pipe, 'permitted')) {
                 /** @var \ReindertVetter\ApiVersionControl\Concerns\VersionStatement $pipe */
+                /** @noinspection PhpUndefinedFieldInspection */
                 $pipe->permit = true;
             }
         }
