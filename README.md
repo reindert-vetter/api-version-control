@@ -163,6 +163,3 @@ Out of the box this package supports versions in the header accept and versions 
 1. Create config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
 1. Choose a [Version parser](#version-parser) or create one yourself.
 
-## Ideas for the future
-- [ ] Determine which container you want to bind based on the version.
-- [ ] Generate release notes in JSON, HTML and markdown format (with description).
