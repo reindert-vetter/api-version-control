@@ -29,23 +29,23 @@ In api_version_control.php config file you will see releases with an array of ve
 
         'GET/orders' => [
             '<=1.0' => [
-                ExamplePrepareParameterException::class,
+                PrepareParameterException::class,
             ],
         ],
 
         '(POST|PUT)/orders' => [
             '<=2.0' => [
-                ExampleThrowCustomException::class,
+                ThrowCustomException::class,
                 ValidateZipCode::class,
             ],
             '<=1.0' => [
-                ExamplePrepareParameterException::class,
+                PrepareParameterException::class,
             ],
         ],
 
         'default' => [
             '<=1.0' => [
-                ExampleThrowCustomException::class,
+                ThrowCustomException::class,
             ],
         ],
 
@@ -93,7 +93,7 @@ namespace App\Middleware\Version;
 use Closure;
 use Illuminate\Http\Request;
 
-class ExamplePrepareParameterException
+class PrepareParameterException
 {
     /**
      * @param           $request
