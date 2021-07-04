@@ -29,6 +29,7 @@ class ApiVersionControl
                                      ->reverse()
                                      ->toArray();
 
+        $request->route()->forgetParameter('version');
         $response = (new Pipeline(Container::getInstance()))
             ->send($request)
             ->through($pipes)
