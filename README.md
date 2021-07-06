@@ -158,7 +158,7 @@ Out of the box this package supports versions in the header accept and versions 
 
 ## Install
 1. Run `composer require reindert-vetter/api-version-control`.
-1. Run `php artisan package:discover` (if this is not done automatically).
+1. Add `->middleware(['api', ApiVersionControl::class])` in your `RouteServiceProvider`.
 1. Create config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
 1. Choose a [Version parser](#version-parser) or create one yourself.
 
