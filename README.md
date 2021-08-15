@@ -172,7 +172,20 @@ In a Version Middleware you can use Laravel Binding. So you can bind a FormReque
 
 The `$request` can be either OrderIndexRequestV1 or OrderIndexRequestV2 and the `$resource` can be either OrderResourceV1 or OrderResourceV2.
 
-You have to crate a BindOrderIndexRequestV1 and a BindOrderIndexRequestV2 middleware in which you will bind the request. The requests must extend the base class OrderIndexRequest. You can do the same for the resource class. The configuration will then look like this:
+You have to create a BindOrderIndexRequestV1 and a BindOrderIndexRequestV2 middleware in which you will bind the request:
+```php
+class BindOrderIndexRequestV2
+{
+    public function handle(Request $request, Closure $next)
+    {
+        app()->bind(OrderIndexRequest::class, OrderIndexRequestV2::class);
+
+        return $next($request);
+    }
+}
+```
+
+The requests must extend the base class OrderIndexRequest. You can do the same for the resource class. The configuration will then look like this:
 ```php
         '(GET)/orders' => [
             '<=1' => [
