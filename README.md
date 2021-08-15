@@ -24,7 +24,7 @@ Option 2: **Version middleware**
 ## How to use
 ### Releases
 In api_version_control.php config file you will see releases with an array of versions:
-```
+```php
     'releases' => [
 
         'GET/orders' => [
@@ -74,7 +74,7 @@ class ValidateZipCode
 }
 ```
 If the file contains the trait `ReindertVetter\ApiVersionControl\Concerns\VersionStatement`, then you can do the following in your source code:
-```
+```php
 if (ValidateZipCode::permitted()) {
     (...)
 }
@@ -84,7 +84,7 @@ if (ValidateZipCode::permitted()) {
 You process all requests and responses what is different from the latest version in middlewares. You can adjust the request with multiple middlewares to match the latest version. You can also adjust the format of a response in the Version middleware.
 
 A *Version middleware* file (that changing the request) can looks like this:
-```
+```php
 <?php
 declare(strict_types=1);
 
@@ -114,7 +114,7 @@ class PrepareParameterException
 ```
 
 A *Version middleware* file (that changing the response) can looks like this:
-```
+```php
 <?php
 declare(strict_types=1);
 
