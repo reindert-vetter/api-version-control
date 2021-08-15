@@ -185,7 +185,7 @@ class BindOrderIndexRequestV2
 }
 ```
 
-The requests must extend the base class OrderIndexRequest. You can do the same for the resource class. The configuration will then look like this:
+OrderIndexRequestV2 must extend the base class OrderIndexRequest. You can do the same for the resource class. The configuration will then look like this:
 ```php
         '(GET)/orders' => [
             '<=1' => [
