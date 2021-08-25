@@ -35,6 +35,6 @@ return [
     ],
 
     'version_parser' => VersionFromHeader::class,
-    // 'version_parser' =>  ReindertVetter\ApiVersionControl\Helper\VersionFromUri::class,
+    // 'version_parser' =>  \ReindertVetter\ApiVersionControl\Helper\VersionFromUri::class,
 
 ];
