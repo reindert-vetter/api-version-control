@@ -63,7 +63,6 @@ Version Rules contains a string with an operator and a version (`'<=2.0'`). Supp
 A *Version Statement* file looks like this:
 ```php
 <?php
-declare(strict_types=1);
 
 namespace App\VersionControl\Orders;
 
@@ -87,7 +86,6 @@ You process all requests and responses what is different from the latest version
 A *Version Middleware* file (that changing the request) can looks like this:
 ```php
 <?php
-declare(strict_types=1);
 
 namespace App\Middleware\Version;
 
@@ -117,7 +115,6 @@ class PrepareParameterException
 A *Version Middleware* file (that changing the response) can looks like this:
 ```php
 <?php
-declare(strict_types=1);
 
 namespace App\Middleware\Version;
 
