@@ -1,5 +1,7 @@
 # API Version Control
-A Laravel package to manage versions of endpoints in an elegant way
+A Laravel package to manage versions of endpoints in an elegant way.
+
+For news, follow me on [Twitter](https://twitter.com/ReindertVetter).
 
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version Statement**
