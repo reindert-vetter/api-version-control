@@ -1,15 +1,15 @@
-# API version control
+# API Version Control
 A Laravel package to manage versions of endpoints in an elegant way
 
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version Statement**
 
-You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version statement](#version-statement).
+You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version Statement](#version-statement).
 
 Option 2: **Version Middleware**
 
- Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a SOLID solution that goes even further than *Version statement*: [Version middleware](#version-middleware).
-> You can use *Version middleware* and *Version statement* together in one project
+ Legacy code can get in the way quickly. Do you therefore create multiple controllers to separate the old code from the new code? How do you do this if there are 10 versions at a given time? By then, will you also have 10 validation schemes and response classes for each endpoint? This package also offers a SOLID solution that goes even further than *Version Statement*: [Version Middleware](#version-middleware).
+> You can use *Version Middleware* and *Version Statement* together in one project
 
 ## Benefits
 
@@ -19,22 +19,22 @@ Option 2: **Version Middleware**
 | One overview of all versions with the adjustments. | ✔️ | ✔️ |
 | The controller (and further) always contains the latest version. | | ✔️ |
 | Old versions are only defined once. Once made, you don't have to worry about that anymore. | | ✔️ |
-> Note for **Version middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
+> Note for **Version Middleware**: If you do not yet use a self-made middleware, you can debug from your controller. With *Version Middleware*, colleagues must now understand that (only with an old version of an endpoint) the code in a middleware also influences the rest of the code.
 
-## How to use
+## How To Use
 
 ### Releases
 In api_version_control.php config file you will see releases with an array of versions:
 ```php
     'releases' => [
 
-        'GET/orders' => [
+        'orders.index' => [
             '<=1.0' => [
                 PrepareParameterException::class,
             ],
         ],
 
-        '(POST|PUT)/orders' => [
+        'orders.store|orders.update' => [
             '<=2.0' => [
                 ThrowCustomException::class,
                 ValidateZipCode::class,
@@ -52,12 +52,12 @@ In api_version_control.php config file you will see releases with an array of ve
 
     ],
 ```
-#### URI match
-The URI match contains a string to match the endpoint with regex (`GET/orders`). The subject contains the method and the URI. It runs through the version rules. If a match is found, it stops searching. The match contains [Version rules](#version_rules).
-> If no URI match can be found, *default* will be used. That way you can update all your other endpoints.
+#### Route Match
+You put the route names in the key of the releases array. The key must match the current route name. Use a `|` to match multiple route names. The package runs through the route names. If a match is found, it stops searching. The match contains [Version Rules](#version_rules). If no Route Name match can be found, *default* will be used. That way you can update all your other endpoints.
+> :warning: **You must specify the route names in your router.** Example: `Route::get('orders', 'OrdersController@index')->name('orders.index');`. When using a resource, the names are determined automatically. For more information, see the [Laravel documentation](https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller).
 
-#### Version rule
-Version rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version rules* with a match are used. The classes within *Version rule* are [Version statement](#version-statement) and [Version middleware](#version-middleware).
+#### Version Rules
+Version Rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version Rules* with a match are used. The classes within *Version rule* are [Version Statement](#version-statement) and [Version Middleware](#version-middleware).
 
 ### Version Statement
 A *Version Statement* file looks like this:
@@ -74,7 +74,7 @@ class ValidateZipCode
     use VersionStatement;
 }
 ```
-If the file contains the trait `ReindertVetter\ApiVersionControl\Concerns\VersionStatement`, then you can do the following in your source code:
+If the file contains the trait `\ReindertVetter\ApiVersionControl\Concerns\VersionStatement`, then you can do the following in your source code:
 ```php
 if (ValidateZipCode::permitted()) {
     (...)
@@ -154,9 +154,9 @@ class ThrowHumanException
 }
 ```
 
-#### Request and Resource binding
+#### Request and Resource Binding
 
-In a Version Middleware you can use Laravel Binding. So you can bind a FormRequest or a Resource to handle other versions. That way you can more easily support different parameters with rules and you can more easily support different resources. A controller that supports different versions could look like:
+In a Version Middleware you can use Laravel Binding. So you can bind a FormRequest or a Resource to handle other versions. That way you can more easily support different parameters with rules, and you can more easily support different resources. A controller that supports different versions could look like:
 
 ```php
     public function index(OrderIndexRequest $request, OrderResource $resource): ResourceCollection
@@ -170,38 +170,30 @@ In a Version Middleware you can use Laravel Binding. So you can bind a FormReque
     }
 ```
 
-The `$request` can be either OrderIndexRequestV1 or OrderIndexRequestV2 and the `$resource` can be either OrderResourceV1 or OrderResourceV2.
+The `$request` can be either OrderIndexRequestV1 or OrderIndexRequestV2 and the `$resource` can be either OrderResourceV1 or OrderResourceV2. OrderIndexRequestV2 must extend the base class OrderIndexRequest. You can do the same for the resource class. When using the `Bind` middleware, then the configuration will look like this:
 
-You have to create a BindOrderIndexRequestV1 and a BindOrderIndexRequestV2 middleware in which you will bind the request:
 ```php
-class BindOrderIndexRequestV2
-{
-    public function handle(Request $request, Closure $next)
-    {
-        app()->bind(OrderIndexRequest::class, OrderIndexRequestV2::class);
+use ReindertVetter\ApiVersionControl\Middleware\Version\Bind;
 
-        return $next($request);
-    }
-}
-```
+return [
 
-OrderIndexRequestV2 must extend the base class OrderIndexRequest. You can do the same for the resource class. The configuration will then look like this:
-```php
-        '(GET)/orders' => [
+    'releases' => [
+
+        'orders.index' => [
             '<=1' => [
-                BindOrderIndexRequestV1::class,
-                BindOrderResourceV1::class,
+                new Bind(OrderIndexRequest::class, OrderIndexRequestV1::class),
+                new Bind(OrderIndexResource::class, OrderIndexResourceV1::class),
             ],
             '>=2' => [
-                BindOrderIndexRequestV2::class,
-                BindOrderResourceV2::class,
+                new Bind(OrderIndexRequest::class, OrderIndexRequestV2::class),
+                new Bind(OrderIndexResource::class, OrderIndexResourceV2::class),
             ],
         ],
 ```
 
 If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
 
-## Version parser
+## Version Parser
 Out of the box this package supports versions in the header accept and versions in the URI. But you can also create your own version parser. Specify this in api_version_control.php config file.
 
 ## Install

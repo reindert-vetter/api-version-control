@@ -16,12 +16,14 @@ class RouteNameMatcherTest extends TestCase
     public function test(): void
     {
         $config = [
-            'orders.index' => [
-                '<=2' => [
-                    ExamplePrepareParameterException::class,
+            'releases'      => [
+                'orders.index' => [
+                    '<=2' => [
+                        ExamplePrepareParameterException::class,
+                    ],
                 ],
+                'default'      => [],
             ],
-            'default'     => [],
             'route_matcher' => RouteNameMatcher::class,
         ];
 
@@ -39,12 +41,14 @@ class RouteNameMatcherTest extends TestCase
     public function testWithMultipleNames(): void
     {
         $config = [
-            'orders.index|orders.show' => [
-                '<=2' => [
-                    ExamplePrepareParameterException::class,
+            'releases'      => [
+                'orders.index|orders.show' => [
+                    '<=2' => [
+                        ExamplePrepareParameterException::class,
+                    ],
                 ],
+                'default'                  => [],
             ],
-            'default'     => [],
             'route_matcher' => RouteNameMatcher::class,
         ];
 

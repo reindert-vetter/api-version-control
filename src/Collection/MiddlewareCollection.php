@@ -37,9 +37,10 @@ class MiddlewareCollection extends Collection
      */
     public static function createFromConfig(Request $request, array $config = null)
     {
-        $releases = $config ?? config('api_version_control.releases');
+        $config   = $config ?? config('api_version_control');
+        $releases = $config['releases'];
         $default  = $releases['default'];
-        $matcher  = $releases['route_matcher'] ?? RouteRegexMatcher::class;
+        $matcher  = $config['route_matcher'] ?? RouteRegexMatcher::class;
         unset($releases['default']);
 
         $matcher = new $matcher($request);

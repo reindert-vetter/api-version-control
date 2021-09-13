@@ -14,12 +14,14 @@ class RouteRegexMatcherTest extends TestCase
     public function testWithVersion(): void
     {
         $config = [
-            '(GET)/orders'    => [
-                '<=2' => [
-                    ExamplePrepareParameterException::class,
+            'releases' => [
+                '(GET)/orders' => [
+                    '<=2' => [
+                        ExamplePrepareParameterException::class,
+                    ],
                 ],
+                'default'      => [],
             ],
-            'default' => [],
         ];
 
         $request = new Request();
