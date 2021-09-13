@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock;
+namespace ReindertVetter\ApiVersionControl\Tests\Unit\StatementVersion\Mock;
 
 use Closure;
 use Illuminate\Http\Request;

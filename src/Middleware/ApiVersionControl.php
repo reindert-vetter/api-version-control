@@ -13,21 +13,25 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 class ApiVersionControl
 {
     /**
-     * @param           $request
-     * @param \Closure  $next
-     *
-     * @return mixed
+     * @var array|null
      */
+    private $config;
+
+    public function __construct(array $config = null)
+    {
+        $this->config = $config;
+    }
+
     public function handle(Request $request, Closure $next): SymfonyResponse
     {
-        $pipes = MiddlewareCollection::createFromConfig($request)
-                                     ->permitVersionStatement()
-                                     ->filterByVersionCompare()
-                                     ->flatten()
-                                     ->rejectNonPipe()
-                                     ->unique()
-                                     ->reverse()
-                                     ->toArray();
+        $pipes = MiddlewareCollection::createFromConfig($request, $this->config)
+            ->permitVersionStatement()
+            ->filterByVersionCompare()
+            ->flatten()
+            ->rejectNonPipe()
+            ->unique()
+            ->reverse()
+            ->toArray();
 
         $request->route()->forgetParameter('version');
         $response = (new Pipeline(Container::getInstance()))

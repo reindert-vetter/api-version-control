@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 
-namespace ReindertVetter\ApiVersionControl\Tests\Unit\VersionParser;
+namespace ReindertVetter\ApiVersionControl\Tests\Unit\StatementVersion;
 
 use PHPUnit\Framework\TestCase;
 use ReindertVetter\ApiVersionControl\Collection\MiddlewareCollection;
-use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionStatementSecond;
-use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionMiddleware;
-use ReindertVetter\ApiVersionControl\Tests\Unit\MiddlewareVersion\Mock\MockVersionStatementFirst;
+use ReindertVetter\ApiVersionControl\Tests\Unit\StatementVersion\Mock\MockVersionStatementSecond;
+use ReindertVetter\ApiVersionControl\Tests\Unit\StatementVersion\Mock\MockVersionMiddleware;
+use ReindertVetter\ApiVersionControl\Tests\Unit\StatementVersion\Mock\MockVersionStatementFirst;
 
 class VersionStatementTest extends TestCase
 {

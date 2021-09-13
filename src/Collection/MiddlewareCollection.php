@@ -7,6 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use ReindertVetter\ApiVersionControl\Exception\BadConfigVersionException;
+use ReindertVetter\ApiVersionControl\Helper\RouteRegexMatcher;
 
 class MiddlewareCollection extends Collection
 {
@@ -34,19 +35,17 @@ class MiddlewareCollection extends Collection
      *
      * @return \ReindertVetter\ApiVersionControl\Collection\MiddlewareCollection
      */
-    public static function createFromConfig(Request $request)
+    public static function createFromConfig(Request $request, array $config = null)
     {
-        $middlewareByPattern = config('api_version_control.releases');
-        $default             = $middlewareByPattern['default'];
-        unset($middlewareByPattern['default']);
+        $releases = $config ?? config('api_version_control.releases');
+        $default  = $releases['default'];
+        $matcher  = $releases['route_matcher'] ?? RouteRegexMatcher::class;
+        unset($releases['default']);
 
-        // Remove version from uri
-        $uri = preg_replace('#(/v[0-9.]+)?#i', '', $request->getPathInfo());
+        $matcher = new $matcher($request);
 
-        $methodWithUri = $request->method() . $uri;
-
-        foreach ($middlewareByPattern as $pattern => $versionsWithPipes) {
-            if (preg_match("#$pattern#i", $methodWithUri)) {
+        foreach ($releases as $key => $versionsWithPipes) {
+            if ($matcher->match($key)) {
                 return new self($versionsWithPipes, $request);
             }
         }
