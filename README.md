@@ -170,6 +170,8 @@ In a Version Middleware you can use Laravel Binding. So you can bind a FormReque
 The `$request` can be either OrderIndexRequestV1 or OrderIndexRequestV2 and the `$resource` can be either OrderResourceV1 or OrderResourceV2. OrderIndexRequestV2 must extend the base class OrderIndexRequest. You can do the same for the resource class. When using the `Bind` middleware, then the configuration will look like this:
 
 ```php
+<?php
+
 use ReindertVetter\ApiVersionControl\Middleware\Version\Bind;
 
 return [
@@ -186,6 +188,9 @@ return [
                 new Bind(OrderIndexResource::class, OrderIndexResourceV2::class),
             ],
         ],
+
+    ]
+]
 ```
 
 If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
