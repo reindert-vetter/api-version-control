@@ -54,7 +54,7 @@ In api_version_control.php config file you will see releases with an array of ve
 ```
 #### Route Match
 You put the route names in the key of the releases array. The key must match the current route name. Use a `|` to match multiple route names. The package runs through the route names. If a match is found, it stops searching. The match contains [Version Rules](#version_rules). If no Route Name match can be found, *default* will be used. That way you can update all your other endpoints.
-> **You have to specify the route names in your router.** Example: `Route::get('orders', 'OrdersController@index')->name('orders.index');`. When using a resource, the names are determined automatically. For more information, see the [Laravel documentation](https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller).
+> **You have to specify the route names in your router.** Example: `Route::get('orders', 'OrdersController@index')->name('orders.index');`. When using you use Resource Controllers, the names are determined automatically. For more information, see the [Laravel documentation](https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller).
 
 #### Version Rules
 Version Rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version Rules* with a match are used. The classes within *Version rule* are [Version Statement](#version-statement) and [Version Middleware](#version-middleware).
