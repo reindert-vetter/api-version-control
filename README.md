@@ -197,7 +197,7 @@ return [
 ]
 ```
 
-If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
+If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/8).
 
 ## Version Parser
 Out of the box this package supports versions in the header accept and versions in the URI. But you can also create your own version parser. Specify this in api_version_control.php config file.
@@ -225,4 +225,6 @@ Route::middleware(['api', ApiVersionControl::class])
 ```
 4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
 5. Choose a [Version parser](#version-parser) or create one yourself.
+
+If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
 
