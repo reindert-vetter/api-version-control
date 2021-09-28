@@ -12,13 +12,13 @@ return [
 
     'releases' => [
 
-        'GET/orders' => [
+        'orders.index' => [
             '<=1.0' => [
                 ExamplePrepareParameterException::class,
             ],
         ],
 
-        '(POST|PUT)/orders' => [
+        'orders.update' => [
             '<=2.0' => [
                 ExampleThrowHumanException::class,
             ],
