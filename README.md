@@ -204,8 +204,7 @@ Out of the box this package supports versions in the header accept and versions 
 
 ## Install
 1. Run `composer require reindert-vetter/api-version-control`.
-2. Add `->middleware(['api', ApiVersionControl::class])` in your `RouteServiceProvider`.
-3. If you are using URL Version Parser (which is the default) make sure the version variable is present in the url. For example:
+2. Add `->middleware(['api', ApiVersionControl::class])` in your `RouteServiceProvider`. If you are using URL Version Parser (which is the default) make sure the version variable is present in the url. For example:
 ```php
 Route::middleware(['api', ApiVersionControl::class])
     ->prefix('api/{version}')
@@ -223,8 +222,8 @@ Route::middleware(['api', ApiVersionControl::class])
     ->where(['version', '#[A-Z]\d{1,3}#'])
     ->group(base_path('routes/api.php'));
 ```
-4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
-5. Choose a [Version parser](#version-parser) or create one yourself.
+3. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
+4. Choose a [Version parser](#version-parser) or create one yourself.
 
 If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
 
