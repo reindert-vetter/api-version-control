@@ -3,6 +3,8 @@ A Laravel package to manage versions of endpoints in an elegant way.
 
 For news, follow me on [Twitter](https://twitter.com/ReindertVetter).
 
+[How to install](#install)
+
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version Statement**
 
@@ -202,7 +204,25 @@ Out of the box this package supports versions in the header accept and versions 
 
 ## Install
 1. Run `composer require reindert-vetter/api-version-control`.
-1. Add `->middleware(['api', ApiVersionControl::class])` in your `RouteServiceProvider`.
-1. Create config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
-1. Choose a [Version parser](#version-parser) or create one yourself.
+2. Add `->middleware(['api', ApiVersionControl::class])` in your `RouteServiceProvider`.
+3. If you are using URL Version Parser (which is the default) make sure the version variable is present in the url. For example:
+```php
+Route::middleware(['api', ApiVersionControl::class])
+    ->prefix('api/{version}')
+    ->where(['version', '#[A-Z]\d{1}#'])
+    ->group(base_path('routes/api.php'));
+```
+Now the routes are only accessible with a version in the URL (eg `/api/v2/products`). Do you also want the endpoint to work without a version in the url? Then first define the routes it without the version variable:
+```php
+Route::middleware(['api', ApiVersionControl::class])
+    ->prefix('api')
+    ->group(base_path('routes/api.php'));
+
+Route::middleware(['api', ApiVersionControl::class])
+    ->prefix('api/{version}')
+    ->where(['version', '#[A-Z]\d{1}#'])
+    ->group(base_path('routes/api.php'));
+```
+4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
+5. Choose a [Version parser](#version-parser) or create one yourself.
 
