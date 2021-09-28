@@ -209,7 +209,7 @@ Out of the box this package supports versions in the header accept and versions 
 ```php
 Route::middleware(['api', ApiVersionControl::class])
     ->prefix('api/{version}')
-    ->where(['version', '#[A-Z]\d{1}#'])
+    ->where(['version', '#[A-Z]\d{1,3}#'])
     ->group(base_path('routes/api.php'));
 ```
 Now the routes are only accessible with a version in the URL (eg `/api/v2/products`). Do you also want the endpoint to work without a version in the url? Then first define the routes it without the version variable:
@@ -220,7 +220,7 @@ Route::middleware(['api', ApiVersionControl::class])
 
 Route::middleware(['api', ApiVersionControl::class])
     ->prefix('api/{version}')
-    ->where(['version', '#[A-Z]\d{1}#'])
+    ->where(['version', '#[A-Z]\d{1,3}#'])
     ->group(base_path('routes/api.php'));
 ```
 4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
