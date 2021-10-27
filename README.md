@@ -108,10 +108,7 @@ class PrepareParameterException
         // Set the default parameter because it is required in a newer version.
         $request->query->set('sort', 'DESC');
 
-        /** @var \Illuminate\Http\Response $response */
-        $response = $next($request);
-
-        return $response;
+        return $next($request);
     }
 }
 ```
