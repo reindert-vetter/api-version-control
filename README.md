@@ -154,7 +154,7 @@ class ThrowHumanException
 
 #### Request and Resource Binding
 
-In a Version Middleware you can use Laravel Binding. So you can bind a FormRequest or a Resource to handle other versions. That way you can more easily support different parameters with rules, and you can more easily support different resources. A controller that supports different versions could look like:
+You can bind a FormRequest or a Resource to handle other versions. That way you can more easily support different parameters with rules, and you can more easily support different resources. A controller that supports different versions could look like:
 
 ```php
     public function index(OrderIndexRequest $request, OrderResource $resource): ResourceCollection
