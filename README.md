@@ -208,7 +208,7 @@ Route::middleware(['api', ApiVersionControl::class])
     ->where(['version', '#[a-z]\d{1,3}#'])
     ->group(base_path('routes/api.php'));
 ```
-Now the routes are only accessible with a version in the URL (eg `/api/v2/products`). Do you also want the endpoint to work without a version in the url? Then first define the routes it without the version variable:
+Now the routes are only accessible with a version in the URL (eg `/api/v2/products`). Do you also want the endpoint to work without a version in the url? Then first define the routes without the version variable:
 ```php
 Route::middleware(['api', ApiVersionControl::class])
     ->prefix('api')
