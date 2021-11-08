@@ -13,22 +13,22 @@ return [
     'releases' => [
 
         'orders.index' => [
-            '<=1.0' => [
+            '<=1' => [
                 ExamplePrepareParameterException::class,
             ],
         ],
 
         'orders.update' => [
-            '<=2.0' => [
+            '<=2' => [
                 ExampleThrowHumanException::class,
             ],
-            '<=1.0' => [
+            '<=1' => [
                 ExamplePrepareParameterException::class,
             ],
         ],
 
         'default' => [
-            '<=2.0' => [
+            '<=2' => [
                 ExampleThrowHumanException::class,
             ],
         ],
