@@ -8,7 +8,7 @@ For news, follow me on [Twitter](https://twitter.com/ReindertVetter).
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version Statement**
 
-You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2.0 and the other from version 3.0? This package offers a clean solution for this: [Version Statement](#version-statement).
+ You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2 and the other from version 3? This package offers a clean solution for this: [Version Statement](#version-statement).
 
 Option 2: **Version Middleware**
 
@@ -33,23 +33,23 @@ In api_version_control.php config file you will see releases with an array of ve
     'releases' => [
 
         'orders.index' => [
-            '<=1.0' => [
+            '<=1' => [
                 PrepareParameterException::class,
             ],
         ],
 
         'orders.store|orders.update' => [
-            '<=2.0' => [
+            '<=2' => [
                 ThrowCustomException::class,
                 ValidateZipCode::class,
             ],
-            '<=1.0' => [
+            '<=1' => [
                 PrepareParameterException::class,
             ],
         ],
 
         'default' => [
-            '<=1.0' => [
+            '<=1' => [
                 ThrowCustomException::class,
             ],
         ],
@@ -61,7 +61,7 @@ You put the route names in the key of the releases array. The key must match the
 > **You have to specify the route names in your router.** Example: `Route::get('orders', 'OrdersController@index')->name('orders.index');`. When using you use Resource Controllers, the names are determined automatically. For more information, see the [Laravel documentation](https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller).
 
 #### Version Rules
-Version Rules contains a string with an operator and a version (`'<=2.0'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version Rules* with a match are used. The classes within *Version rule* are [Version Statement](#version-statement) and [Version Middleware](#version-middleware).
+Version Rules contains a string with an operator and a version (`'<=2'`). Supported operators are: `<`, `<=`, `>`, `>=`, `==`, `!=`. All classes within the *Version Rules* with a match are used. The classes within *Version rule* are [Version Statement](#version-statement) and [Version Middleware](#version-middleware).
 
 ### Version Statement
 A *Version Statement* file looks like this:
