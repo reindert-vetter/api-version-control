@@ -5,21 +5,24 @@ namespace ReindertVetter\ApiVersionControl\Middleware\Version;
 
 use Closure;
 use Illuminate\Http\Request;
+use ReindertVetter\ApiVersionControl\Concerns\CacheableVersion;
 
 class Bind
 {
-    private $abstract;
-    private $conrete;
+    use CacheableVersion;
 
-    public function __construct($abstract, $conrete)
+    private $abstract;
+    private $concrete;
+
+    public function __construct($abstract, $concrete)
     {
         $this->abstract = $abstract;
-        $this->conrete = $conrete;
+        $this->concrete = $concrete;
     }
 
     public function handle(Request $request, Closure $next)
     {
-        app()->bind($this->abstract, $this->conrete);
+        app()->bind($this->abstract, $this->concrete);
 
         return $next($request);
     }
