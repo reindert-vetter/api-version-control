@@ -219,8 +219,9 @@ Route::middleware(['api', ApiVersionControl::class])
     ->where(['version', '#[a-z]\d{1,3}#'])
     ->group(base_path('routes/api.php'));
 ```
-3. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
-4. Choose a [Version parser](#version-parser) or create one yourself.
+3. Add `\ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider::class` to your providers in config/app.php
+4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
+5. Choose a [Version parser](#version-parser) or create one yourself.
 
 If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
 
