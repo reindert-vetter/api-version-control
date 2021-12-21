@@ -75,10 +75,10 @@ class MiddlewareCollection extends Collection
     public function permitVersionStatement(): self
     {
         foreach ($this->flatten() as $pipe) {
-            if (is_string($pipe)) {
-                $pipe = new $pipe();
-            }
             if (method_exists($pipe, 'permitted')) {
+                if (is_string($pipe)) {
+                    $pipe = new $pipe();
+                }
                 /** @var \ReindertVetter\ApiVersionControl\Concerns\VersionStatement $pipe */
                 /** @noinspection PhpUndefinedFieldInspection */
                 $pipe->permit = true;
