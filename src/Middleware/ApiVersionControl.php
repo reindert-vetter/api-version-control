@@ -25,8 +25,8 @@ class ApiVersionControl
     public function handle(Request $request, Closure $next): SymfonyResponse
     {
         $pipes = MiddlewareCollection::createFromConfig($request, $this->config)
-            ->permitVersionStatement()
             ->filterByVersionCompare()
+            ->permitVersionStatement()
             ->flatten()
             ->rejectNonPipe()
             ->unique()

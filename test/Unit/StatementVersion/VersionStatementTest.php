@@ -38,6 +38,15 @@ class VersionStatementTest extends TestCase
         $this->assertFalse(MockVersionStatementSecond::permitted());
     }
 
+    public function testPermitVersionStatementStringClass(): void
+    {
+        $goodVersionStatement = MockVersionStatementFirst::class;
+        $middlewareCollection = new MiddlewareCollection([$goodVersionStatement]);
+        $middlewareCollection->permitVersionStatement();
+
+        $this->assertFalse(MockVersionStatementSecond::permitted());
+    }
+
     public function testRejectVersionStatement(): void
     {
         $middlewareCollection = new MiddlewareCollection(
