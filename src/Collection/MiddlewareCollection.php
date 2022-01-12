@@ -40,6 +40,7 @@ class MiddlewareCollection extends Collection
         $config   = $config ?? config('api_version_control');
         $releases = $config['releases'];
         $default  = $releases['default'];
+        $all  = $releases['all'] ?? [];
         $matcher  = $config['route_matcher'] ?? RouteRegexMatcher::class;
         unset($releases['default']);
 
@@ -47,11 +48,11 @@ class MiddlewareCollection extends Collection
 
         foreach ($releases as $key => $versionsWithPipes) {
             if ($matcher->match($key)) {
-                return new self($versionsWithPipes, $request);
+                return new self(self::mergeAll($all, $versionsWithPipes), $request);
             }
         }
 
-        return new self($default, $request);
+        return new self(self::mergeAll($all, $default), $request);
     }
 
     /**
@@ -115,5 +116,13 @@ class MiddlewareCollection extends Collection
             'operator' => $result[1],
             'version'  => $result[2],
         ];
+    }
+
+    private static function mergeAll(array $all, array $with): array {
+        foreach ($all as $version => $pipes) {
+            $with[$version] = array_merge($pipes, ($with[$version] ?? []));
+        }
+
+        return $with;
     }
 }
