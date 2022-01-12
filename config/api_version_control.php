@@ -5,6 +5,7 @@ use ReindertVetter\ApiVersionControl\Helper\RouteNameMatcher;
 use ReindertVetter\ApiVersionControl\Helper\VersionFromHeader;
 use ReindertVetter\ApiVersionControl\Middleware\Version\{
     ExamplePrepareParameterException,
+    ExamplePrepareSortParameter,
     ExampleThrowHumanException
 };
 
@@ -30,6 +31,12 @@ return [
         'default' => [
             '<=2.0' => [
                 ExampleThrowHumanException::class,
+            ],
+        ],
+
+        'all' => [
+            '<=1.0' => [
+                ExamplePrepareSortParameter::class,
             ],
         ],
 
