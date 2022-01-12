@@ -18,7 +18,8 @@ class RouteNameMatcher implements RouteMatcher
     {
         $names = explode('|', $key);
         foreach ($names as $name) {
-            if ($this->request->route()->getName() === $name) {
+            $routeName = preg_replace('/^no_version\./', '', $this->request->route()->getName());
+            if ($routeName === $name) {
                 return true;
             }
         }
