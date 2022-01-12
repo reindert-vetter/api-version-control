@@ -220,9 +220,12 @@ Route::middleware(['api', ApiVersionControl::class])
     ->where(['version' => 'v\d{1,3}'])
     ->group(base_path('routes/api.php'));
 ```
+_You can see here that we prefix the names routers without version with `default.`. You have to do that to avoid the error `Another route is already using that name` when caching the routers. Decide for yourself whether this is desirable for your application._
+
 3. Add `\ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider::class` to your providers in config/app.php
 4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
 5. Choose a [Version parser](#version-parser) or create one yourself.
+6. Run (when necessary) `php artisan route:clear` or `php artisan route:cache`
 
 If it's not quite clear yet, post your question in the [discussion](https://github.com/reindert-vetter/api-version-control/discussions/5).
 
