@@ -17,7 +17,7 @@ class RouteNameMatcher implements RouteMatcher
     public function match(string $key): bool
     {
         $names = explode('|', $key);
-        $routeName = $this->request->route()->getName()   
+        $routeName = $this->request->route()->getName();
         if ($routeName === null) {
             return false;
         }
