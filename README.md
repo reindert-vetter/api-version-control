@@ -220,7 +220,7 @@ Now the routes are only accessible with a version in the URL (eg `/api/v2/produc
 ```php
 Route::middleware(['api', ApiVersionControl::class])
     ->prefix('api')
-    ->as('default.')
+    ->as('no_version.')
     ->group(base_path('routes/api.php'));
 
 Route::middleware(['api', ApiVersionControl::class])
@@ -228,7 +228,7 @@ Route::middleware(['api', ApiVersionControl::class])
     ->where(['version' => 'v\d{1,3}'])
     ->group(base_path('routes/api.php'));
 ```
-_You can see here that we prefix the route name with `default.` (for the routers without a version). You have to do that to avoid the error `Another route is already using that name` when caching the routers. Decide for yourself whether this is desirable for your application._
+_You can see here that we prefix the route name with `no_version.` (for the routers without a version). You have to do that to avoid the error `Another route is already using that name` when caching the routers. Decide for yourself whether this is desirable for your application._
 
 3. Add `\ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider::class` to your providers in config/app.php
 4. Create a config file by running `php artisan vendor:publish --provider='ReindertVetter\ApiVersionControl\ApiVersionControlServiceProvider'`.
