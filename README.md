@@ -8,7 +8,7 @@ For news, follow me on [Twitter](https://twitter.com/ReindertVetter).
 ## Two ways to manage the versions of your endpoints
 Option 1: **Version Statement**
 
- You probably use if statements to determine whether the code should be executed from a particular version (for example `if (RequestVersion::isAtLeast('2.0')) {`). But what do you do if you want to run this code for 2 endpoints, one from version 2 and the other from version 3? This package offers a clean solution for this: [Version Statement](#version-statement).
+ You probably use if statements to determine whether the code should be executed from a particular version. But what do you do if you want to run this code for 2 endpoints, one from version 2 and the other from version 3? This package offers a clean solution for this: [Version Statement](#version-statement).
 
 Option 2: **Version Middleware**
 
