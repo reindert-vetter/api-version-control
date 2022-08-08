@@ -29,7 +29,7 @@ class VersionFromUri implements VersionParser
     public function getVersion(): string
     {
         $uri = $this->request->getPathInfo();
-        if (! preg_match('/\/v([0-9.]+)\//i', $uri, $version)) {
+        if (! preg_match('/\/v([0-9.]+)\/?/i', $uri, $version)) {
             return self::LOWEST_VERSION;
         };
 
