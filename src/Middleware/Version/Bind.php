@@ -6,6 +6,7 @@ namespace ReindertVetter\ApiVersionControl\Middleware\Version;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Container\Container;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Collection;
 use ReindertVetter\ApiVersionControl\Concerns\CacheableVersion;
 use Illuminate\Http\Resources\Json\JsonResource;
