@@ -24,7 +24,11 @@ class Bind
 
     public function handle(Request $request, Closure $next)
     {
-        if (is_subclass_of($this->concrete, JsonResource::class)){
+        if (is_subclass_of($this->concrete, ResourceCollection::class)){
+            app()->bind($this->abstract, function(Container $container){
+                return new $this->concrete(new Collection);
+            });
+        } elseif (is_subclass_of($this->concrete, JsonResource::class)){
             app()->bind($this->abstract, function(Container $container){
                 return new $this->concrete(new \stdClass);
             });
