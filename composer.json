@@ -24,7 +24,7 @@
     "illuminate/routing": ">=5.7.12"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.0"
+    "phpunit/phpunit": "^8.5"
   },
   "autoload": {
     "psr-4": {
